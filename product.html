@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product — Anuyog Engineering, Vapi</title>
+<meta name="description" content="Product detail, size options and specification. Send an inquiry to Anuyog Engineering, Vapi.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<div class="wrap"><div class="crumb" id="crumb"></div></div>
+
+<section class="sec" style="padding-top:8px">
+  <div class="wrap">
+    <div class="pd">
+      <div>
+        <div class="pd-img" id="pImg"></div>
+      </div>
+      <div>
+        <h1 id="pName" style="font-size:clamp(25px,5vw,36px)">Product</h1>
+        <div class="price" id="pPrice" style="font-size:24px;margin-bottom:6px"></div>
+        <p class="lede" id="pShort"></p>
+
+        <h3 style="margin-top:26px">Choose a size or capacity</h3>
+        <div class="var" id="pVar"></div>
+
+        <div style="display:grid;gap:9px;margin-top:16px">
+          <button class="btn brass wide" id="pInq">Inquire about this option</button>
+          <a class="btn ghost wide" id="pWa" target="_blank" rel="noopener">Ask on WhatsApp</a>
+        </div>
+        <p class="note" style="margin-top:10px">No online payment and no cart — we quote every job in writing
+          after we understand the quantity, grade and delivery point.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:44px" class="pd">
+      <div>
+        <h2>About this product</h2>
+        <div class="prose" id="pLong"></div>
+      </div>
+      <div>
+        <h2>Specification</h2>
+        <table class="spec"><tbody id="pSpec"></tbody></table>
+        <div class="factbox" style="margin-top:20px">
+          <dl>
+            <dt>Made by</dt><dd id="fCo"></dd>
+            <dt>Manufactured at</dt><dd id="fCity"></dd>
+            <dt>Lead time</dt><dd>2–4 weeks from confirmed order</dd>
+            <dt>Minimum order</dt><dd>1 piece for stock sizes</dd>
+            <dt>Packing</dt><dd>Bubble wrap and wooden crate for transit</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:48px">
+      <h2 id="relHd">More from this category</h2>
+      <div class="grid" id="rel"></div>
+    </div>
+  </div>
+</section>
+
+<script src="assets/firebase.js"></script>
+<script src="assets/data.js"></script>
+<script src="assets/site.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+  await adminReady();
+  const slug = new URLSearchParams(location.search).get("p");
+  const p = bySlug(slug);
+  const wrapEl = document.querySelector(".sec .wrap");
+
+  if (!p) {
+    wrapEl.innerHTML = '<h1>Product not found</h1><p class="lede">That link does not match anything in our range. ' +
+      '<a href="products.html">Open the full range</a> and pick from there.</p>';
+    document.getElementById("crumb").innerHTML = '<a href="index.html">Home</a> &rsaquo; <a href="products.html">Products</a>';
+    return;
+  }
+
+  const c = catBySlug(p.cat);
+  document.title = p.name + " — Anuyog Engineering, Vapi";
+  document.getElementById("crumb").innerHTML =
+    `<a href="index.html">Home</a> &rsaquo; <a href="products.html">Products</a> &rsaquo; ` +
+    `<a href="category.html?c=${c.slug}">${esc(c.name)}</a> &rsaquo; ${esc(p.name)}`;
+
+  document.getElementById("pImg").innerHTML = thumb(p);
+  document.getElementById("pName").textContent = p.name;
+  document.getElementById("pPrice").innerHTML = money(p.from) + ' <small>onwards / ' + esc(p.unit) + '</small>';
+  document.getElementById("pShort").textContent = p.short;
+  document.getElementById("pLong").innerHTML = "<p>" + esc(p.long) + "</p>";
+  document.getElementById("pSpec").innerHTML =
+    p.specs.map(([k, v]) => `<tr><th>${esc(k)}</th><td>${esc(v)}</td></tr>`).join("");
+  document.getElementById("fCo").textContent = COMPANY.name;
+  document.getElementById("fCity").textContent = COMPANY.city;
+
+  document.getElementById("pVar").innerHTML = p.variants.map((v, i) => `
+    <label>
+      <input type="radio" name="variant" value="${i}" ${i === 0 ? "checked" : ""}>
+      <span><span class="vn">${esc(v.name)}</span><br><span class="vd">${esc(v.d)}</span></span>
+      <span class="vp">${money(v.price)}</span>
+    </label>`).join("");
+
+  const chosen = () => {
+    const i = document.querySelector('input[name="variant"]:checked').value;
+    return p.name + " — " + p.variants[i].name;
+  };
+  const waLink = () => "https://wa.me/" + COMPANY.whatsapp + "?text=" +
+    encodeURIComponent("Hello Anuyog Engineering, I would like a quotation for: " + chosen() + ".");
+
+  const wa = document.getElementById("pWa");
+  wa.href = waLink();
+  document.getElementById("pVar").addEventListener("change", () => { wa.href = waLink(); });
+  document.getElementById("pInq").addEventListener("click", () => openInquiry(chosen()));
+
+  const rel = byCat(p.cat).filter(x => x.slug !== p.slug);
+  const list = rel.length ? rel : getAllProducts().filter(x => x.slug !== p.slug).slice(0, 4);
+  document.getElementById("relHd").textContent = rel.length ? "More in " + c.name : "Elsewhere in the range";
+  document.getElementById("rel").innerHTML = list.map(card).join("");
+});
+</script>
+</body>
+</html>
