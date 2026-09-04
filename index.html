@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anuyog Engineering — SS &amp; MS Fabrication, Vapi | Pharma, Food &amp; Kitchen Equipment</title>
+<meta name="description" content="Anuyog Engineering, Vapi (Gujarat). Manufacturers of stainless steel furniture, lockers, mixing tanks, jacketed vessels, GMP equipment and custom SS/MS fabrication. Send an inquiry for a quotation.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+   <div>
+    <h1>Stainless steel built to the drawing you send us.</h1>
+    <p class="lede">We fabricate SS and MS equipment for pharmaceutical, food, chemical and
+      commercial kitchen plants — from a single scoop to a 5,000 litre jacketed vessel.
+      Browse the range, pick the size you need, and send an inquiry. We quote in writing.</p>
+    <div class="hero-cta">
+      <a class="btn brass" href="products.html">Browse all products</a>
+      <a class="btn ghost" href="#featured">See what buyers ask for most</a>
+    </div>
+    <div class="hero-facts">
+      <div><b>2009</b><span>Fabricating in Vapi since</span></div>
+      <div><b>18,000</b><span>sq. ft. workshop floor</span></div>
+      <div><b>45+</b><span>fabricators, fitters, polishers</span></div>
+      <div><b>SS 304 / 316L</b><span>Grades we work in daily</span></div>
+    </div>
+   </div>
+   <figure class="hero-fig">
+     <div class="hero-slideshow" id="heroSlides"></div>
+     <figcaption id="heroCaption">Loading the range…</figcaption>
+   </figure>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="trust">
+      <div><b>You get a real quotation</b><p>Written, itemised, with the material grade and finish stated. Not a phone number to chase.</p></div>
+      <div><b>Made to your dimension</b><p>Almost everything here is also built to site measurement or to your drawing.</p></div>
+      <div><b>Test papers with the job</b><p>Material test certificate, weld report and hydro test for tanks and vessels.</p></div>
+      <div><b>We handle the site work</b><p>Delivery, positioning and on-site assembly across Gujarat and Maharashtra.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== product slider, middle of the page ===== -->
+<section class="sec alt" id="featured">
+  <div class="wrap">
+    <div class="sec-hd">
+      <h2>Most enquired this season</h2>
+      <p>Swipe through the items buyers ask for most often. Each one opens a page with its
+         full size range, specification table and an inquiry form.</p>
+    </div>
+    <div class="slider">
+      <div class="rail" id="railFeat"></div>
+      <div class="rail-nav">
+        <button data-rail="railFeat" data-dir="prev" aria-label="Previous products">&larr;</button>
+        <button data-rail="railFeat" data-dir="next" aria-label="Next products">&rarr;</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-hd">
+      <h2>Shop by category</h2>
+      <p>Every category holds several products, and every product carries its own size,
+         capacity and grade options — so you can get to the exact item before you write to us.</p>
+    </div>
+    <div class="cats" id="catGrid"></div>
+  </div>
+</section>
+
+<section class="sec alt">
+  <div class="wrap">
+    <div class="sec-hd"><h2>Newly added to the range</h2></div>
+    <div class="slider">
+      <div class="rail" id="railNew"></div>
+      <div class="rail-nav">
+        <button data-rail="railNew" data-dir="prev" aria-label="Previous products">&larr;</button>
+        <button data-rail="railNew" data-dir="next" aria-label="Next products">&rarr;</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap prose">
+    <h2>About Anuyog Engineering</h2>
+    <p>Anuyog Engineering is a stainless and mild steel fabrication unit in the GIDC estate at
+      Vapi, Gujarat. We started in 2009 doing job work for the pharmaceutical formulation plants
+      around Vapi and Sarigam, and that is still the heart of what we do: equipment that has to be
+      cleanable, that has to hold a surface finish, and that has to pass an audit.</p>
+    <p>Over the years the range grew outward from that core. Change-room furniture and lockers
+      because the plants needed them from someone who understood the clean boundary. Mixing tanks
+      and jacketed vessels because customers wanted the process equipment from the same shop that
+      built their utilities. Commercial kitchen equipment because a hotel group in Daman asked, and
+      the fabrication is the same discipline. Today about seventy per cent of what leaves the shop
+      is made to a customer's drawing or to a site measurement rather than to a catalogue size.</p>
+    <p>Our workshop runs shearing, press braking, rolling, TIG and MIG welding, and a full polishing
+      line — matt buff, mirror and electropolish through a partner unit. Fabricators who work on
+      product-contact surfaces work only on stainless; we keep carbon steel tooling and grinding
+      media physically separate so there is no iron pick-up on a food or pharma job.</p>
+    <p><a href="about.html">Read the full company profile</a> &nbsp;·&nbsp;
+       <a href="quality.html">How we build and test</a></p>
+  </div>
+</section>
+
+<script src="assets/firebase.js"></script>
+<script src="assets/data.js"></script>
+<script src="assets/site.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+  await adminReady();
+  const feat = getAllProducts().filter(p => p.featured);
+  const rest = getAllProducts().filter(p => !p.featured).slice(0, 8);
+  document.getElementById("railFeat").innerHTML = feat.map(card).join("");
+  document.getElementById("railNew").innerHTML  = rest.map(card).join("");
+  document.getElementById("catGrid").innerHTML = CATEGORIES.map(c => `
+    <a class="cat" href="category.html?c=${c.slug}">
+      <h3>${esc(c.name)}</h3>
+      <p>${esc(c.blurb)}</p>
+      <b>${byCat(c.slug).length} products &rarr;</b>
+    </a>`).join("");
+  wireRail("railFeat"); wireRail("railNew");
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact &amp; Location — Anuyog Engineering, Vapi</title>
+<meta name="description" content="Contact Anuyog Engineering, Vapi (Gujarat) — address, phone, WhatsApp, email and working hours.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<div class="wrap"><div class="crumb"><a href="index.html">Home</a> &rsaquo; Contact</div></div>
+
+<section class="sec" style="padding-top:8px">
+  <div class="wrap">
+    <h1>Come and see the shop</h1>
+    <p class="lede">We would rather you walked the floor before placing a large order. Call ahead
+      and someone will meet you at the gate. If you are coming from the Mumbai–Ahmedabad highway,
+      the GIDC estate is about fifteen minutes from the Vapi exit.</p>
+
+    <div class="pd" style="margin-top:30px">
+      <div>
+        <h2>Reach us</h2>
+        <div class="factbox">
+          <dl>
+            <dt>Works &amp; office</dt><dd id="cAddr"></dd>
+            <dt>Phone</dt><dd><a id="cPhone" href="#"></a></dd>
+            <dt>WhatsApp</dt><dd><a id="cWa" target="_blank" rel="noopener">Message us</a></dd>
+            <dt>Email</dt><dd><a id="cEmail" href="#"></a></dd>
+            <dt>Working hours</dt><dd id="cHours"></dd>
+            <dt>Closed</dt><dd>Sundays and public holidays</dd>
+            <dt>GST</dt><dd id="cGst"></dd>
+            <dt>Udyam</dt><dd id="cUdyam"></dd>
+          </dl>
+        </div>
+        <div style="display:grid;gap:9px;max-width:340px">
+          <a class="btn brass wide" href="inquiry.html">Send an inquiry</a>
+          <a class="btn ghost wide" id="cMap" target="_blank" rel="noopener">Open in Google Maps</a>
+        </div>
+      </div>
+
+      <div>
+        <h2>Who to ask for</h2>
+        <table class="spec"><tbody>
+          <tr><th>New inquiries and quotations</th><td>Sales desk — extension 1</td></tr>
+          <tr><th>Drawings and technical queries</th><td>Design office — extension 2</td></tr>
+          <tr><th>Order status and dispatch</th><td>Production planning — extension 3</td></tr>
+          <tr><th>Accounts and invoicing</th><td>Accounts — extension 4</td></tr>
+          <tr><th>Warranty and service</th><td>Service desk — extension 5</td></tr>
+        </tbody></table>
+
+        <h2 style="margin-top:30px">What to have ready</h2>
+        <p>An inquiry moves faster when you can tell us four things: the item and quantity, the
+          size or capacity, the material grade and finish if your specification calls for one, and
+          where it has to be delivered. A drawing is better than all four, and a photograph of a
+          hand sketch with dimensions on it counts as a drawing.</p>
+
+        <h2 style="margin-top:30px">Getting here</h2>
+        <p>The works are in the GIDC industrial estate at Vapi, Dist. Valsad, Gujarat. Vapi railway
+          station is roughly six kilometres away and Surat airport is about two hours by road.
+          Goods vehicles can reach the shop door — there is no lifting constraint on the approach.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="assets/firebase.js"></script>
+<script src="assets/data.js"></script>
+<script src="assets/site.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("cAddr").textContent  = COMPANY.address;
+  document.getElementById("cHours").textContent = COMPANY.hours;
+  document.getElementById("cGst").textContent   = COMPANY.gst;
+  document.getElementById("cUdyam").textContent = COMPANY.udyam;
+  const ph = document.getElementById("cPhone");
+  ph.textContent = COMPANY.phone; ph.href = "tel:" + COMPANY.phoneHref;
+  const em = document.getElementById("cEmail");
+  em.textContent = COMPANY.email; em.href = "mailto:" + COMPANY.email;
+  document.getElementById("cWa").href = "https://wa.me/" + COMPANY.whatsapp;
+  document.getElementById("cMap").href =
+    "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(COMPANY.address);
+});
+</script>
+</body>
+</html>
