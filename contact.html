@@ -2,19 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contact &amp; Location — Anuyog Engineering, Vapi</title>
 <meta name="description" content="Contact Anuyog Engineering, Vapi (Gujarat) — address, phone, WhatsApp, email and working hours.">
-<meta name="theme-color" content="#152A52">
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
-<script>document.documentElement.classList.add("js");setTimeout(function(){document.documentElement.classList.add("rv-all")},3000)</script>
-<script src="assets/config.js"></script>
 </head>
-<body data-page="contact">
-<main id="main">
+<body>
+
 <div class="wrap"><div class="crumb"><a href="index.html">Home</a> &rsaquo; Contact</div></div>
 
 <section class="sec" style="padding-top:8px">
@@ -46,7 +40,14 @@
       </div>
 
       <div>
-       
+        <h2>Who to ask for</h2>
+        <table class="spec"><tbody>
+          <tr><th>New inquiries and quotations</th><td>Sales desk — extension 1</td></tr>
+          <tr><th>Drawings and technical queries</th><td>Design office — extension 2</td></tr>
+          <tr><th>Order status and dispatch</th><td>Production planning — extension 3</td></tr>
+          <tr><th>Accounts and invoicing</th><td>Accounts — extension 4</td></tr>
+          <tr><th>Warranty and service</th><td>Service desk — extension 5</td></tr>
+        </tbody></table>
 
         <h2 style="margin-top:30px">What to have ready</h2>
         <p>An inquiry moves faster when you can tell us four things: the item and quantity, the
@@ -62,8 +63,24 @@
     </div>
   </div>
 </section>
-</main>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" defer></script>
-<script type="module" src="assets/app.js"></script>
+
+<script src="assets/data.js"></script>
+<script src="assets/catalog-sync.js"></script>
+<script src="assets/site.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("cAddr").textContent  = COMPANY.address;
+  document.getElementById("cHours").textContent = COMPANY.hours;
+  document.getElementById("cGst").textContent   = COMPANY.gst;
+  document.getElementById("cUdyam").textContent = COMPANY.udyam;
+  const ph = document.getElementById("cPhone");
+  ph.textContent = COMPANY.phone; ph.href = "tel:" + COMPANY.phoneHref;
+  const em = document.getElementById("cEmail");
+  em.textContent = COMPANY.email; em.href = "mailto:" + COMPANY.email;
+  document.getElementById("cWa").href = "https://wa.me/" + COMPANY.whatsapp;
+  document.getElementById("cMap").href =
+    "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(COMPANY.address);
+});
+</script>
 </body>
 </html>

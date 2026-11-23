@@ -2,19 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Terms &amp; Conditions — Anuyog Engineering, Vapi</title>
 <meta name="description" content="Terms of use for this website and the commercial terms on which Anuyog Engineering quotes and supplies equipment.">
-<meta name="theme-color" content="#152A52">
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
-<script>document.documentElement.classList.add("js");setTimeout(function(){document.documentElement.classList.add("rv-all")},3000)</script>
-<script src="assets/config.js"></script>
 </head>
-<body data-page="terms">
-<main id="main">
+<body>
+
 <div class="wrap"><div class="crumb"><a href="index.html">Home</a> &rsaquo; Terms &amp; conditions</div></div>
 
 <section class="sec" style="padding-top:8px">
@@ -102,8 +96,17 @@
     <p id="tc"></p>
   </div>
 </section>
-</main>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" defer></script>
-<script type="module" src="assets/app.js"></script>
+
+<script src="assets/data.js"></script>
+<script src="assets/catalog-sync.js"></script>
+<script src="assets/site.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("tc").innerHTML =
+    esc(COMPANY.name) + "<br>" + esc(COMPANY.address) +
+    '<br><a href="mailto:' + COMPANY.email + '">' + esc(COMPANY.email) + '</a>' +
+    '<br><a href="tel:' + COMPANY.phoneHref + '">' + esc(COMPANY.phone) + '</a>';
+});
+</script>
 </body>
 </html>

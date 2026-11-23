@@ -1,7 +1,140 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Admin — Anuyog Engineering</title><meta name="robots" content="noindex, nofollow"><link rel="icon" href="assets/favicon.svg">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css"><script src="assets/config.js"></script></head>
-<body data-page="admin" style="background:var(--paper)"><div class="adm" id="root"><p class="muted">Loading…</p></div>
-<script type="module" src="assets/admin.js"></script></body></html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catalogue admin — Anuyog Engineering</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/admin.css">
+</head>
+<body>
+
+<div class="wrap"><div class="crumb"><a href="index.html">Home</a> &rsaquo; Catalogue admin</div></div>
+
+<section class="sec" style="padding-top:8px">
+  <div class="wrap">
+
+    <div class="adm-hd">
+      <div>
+        <h1 style="font-size:clamp(22px,4vw,30px);margin-bottom:4px">Catalogue admin</h1>
+        <p class="muted">Add, edit or remove products. Changes save to this browser and appear across the
+          site immediately — on all pages, on this device.</p>
+      </div>
+      <div class="adm-actions">
+        <button class="btn ghost" id="btnReset">Reset to original catalogue</button>
+        <button class="btn brass" id="btnAdd">+ Add product</button>
+      </div>
+    </div>
+
+    <div class="adm-note">
+      This site has no server or login, so this panel stores its changes in your browser's local storage
+      rather than on a database. They will show on this device only — export/re-enter the same edits on
+      another device or browser if you need them there too.
+    </div>
+
+    <div class="adm-table-wrap">
+      <table class="adm-table">
+        <thead>
+          <tr>
+            <th style="width:56px"></th>
+            <th>Product</th>
+            <th>Category</th>
+            <th>From</th>
+            <th>Variants</th>
+            <th></th>
+            <th style="width:190px"></th>
+          </tr>
+        </thead>
+        <tbody id="admBody"></tbody>
+      </table>
+      <div class="adm-empty" id="admEmpty" hidden>No products in the catalogue yet — add the first one.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== add / edit form ===== -->
+<div class="adm-form-overlay" id="admOverlay">
+  <div class="adm-form-box">
+    <div class="adm-form-hd">
+      <h3 id="admFormTitle">Add product</h3>
+      <button class="x" id="admFormClose" aria-label="Close">&times;</button>
+    </div>
+
+    <form id="admForm" novalidate>
+      <div class="adm-grid2">
+        <div class="adm-field">
+          <label for="fName">Product name</label>
+          <input id="fName" required>
+        </div>
+        <div class="adm-field">
+          <label for="fSlug">URL slug</label>
+          <input id="fSlug" required pattern="[a-z0-9\-]+">
+          <div class="hint">Lower-case, letters/numbers/hyphens only. Used in the product link.</div>
+        </div>
+      </div>
+
+      <div class="adm-grid2">
+        <div class="adm-field">
+          <label for="fCat">Category</label>
+          <select id="fCat"></select>
+        </div>
+        <div class="adm-field">
+          <label for="fUnit">Unit</label>
+          <input id="fUnit" value="Piece">
+        </div>
+      </div>
+
+      <div class="adm-grid2">
+        <div class="adm-field">
+          <label for="fFrom">Starting price (₹)</label>
+          <input id="fFrom" type="number" min="0" step="1">
+        </div>
+        <div class="adm-field">
+          <label class="adm-check" style="margin-top:30px"><input type="checkbox" id="fFeatured"> Show in "Most enquired" / featured rails</label>
+        </div>
+      </div>
+
+      <div class="adm-field">
+        <label for="fImg">Product photo</label>
+        <input id="fImg" type="file" accept="image/*">
+        <div class="hint">Optional — leave blank to show the site's placeholder monogram.</div>
+        <img class="adm-img-preview" id="fImgPreview" hidden>
+      </div>
+
+      <div class="adm-field">
+        <label for="fShort">Short description</label>
+        <textarea id="fShort" rows="2"></textarea>
+      </div>
+      <div class="adm-field">
+        <label for="fLong">Full description</label>
+        <textarea id="fLong" rows="4"></textarea>
+      </div>
+
+      <div class="adm-repeat">
+        <h4>Specification table</h4>
+        <div id="specRows"></div>
+        <button type="button" class="adm-repeat-add" id="addSpec">+ Add spec row</button>
+      </div>
+
+      <div class="adm-repeat">
+        <h4>Size / capacity variants</h4>
+        <div id="varRows"></div>
+        <button type="button" class="adm-repeat-add" id="addVar">+ Add variant</button>
+      </div>
+
+      <div class="adm-form-actions">
+        <button type="submit" class="btn brass">Save product</button>
+        <button type="button" class="btn ghost" id="admCancel">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="assets/data.js"></script>
+<script src="assets/catalog-sync.js"></script>
+<script src="assets/site.js"></script>
+<script src="assets/admin.js"></script>
+</body>
+</html>

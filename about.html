@@ -2,19 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>About Us — Anuyog Engineering, Vapi (Gujarat)</title>
-<meta name="description" content="Company profile of Anuyog Engineering, Vapi — an SS and MS fabrication unit supplying pharmaceutical, food, chemical and commercial kitchen plants since 2026.">
-<meta name="theme-color" content="#152A52">
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<meta name="description" content="Company profile of Anuyog Engineering, Vapi — an SS and MS fabrication unit supplying pharmaceutical, food, chemical and commercial kitchen plants since 2009.">
 <link rel="stylesheet" href="assets/style.css">
-<script>document.documentElement.classList.add("js");setTimeout(function(){document.documentElement.classList.add("rv-all")},3000)</script>
-<script src="assets/config.js"></script>
 </head>
-<body data-page="about">
-<main id="main">
+<body>
+
 <div class="wrap"><div class="crumb"><a href="index.html">Home</a> &rsaquo; About us</div></div>
 
 <section class="sec" style="padding-top:8px">
@@ -27,11 +21,11 @@
       <dl>
         <dt>Legal name</dt><dd id="d1"></dd>
         <dt>Business type</dt><dd>Manufacturer and fabricator (proprietorship)</dd>
-        <dt>Established</dt><dd >2026</dd>
-        <dt>Works address</dt><dd >Plot No. 925, Opp. Swaraj Eng. Compound, B/H Aarti Industries, 4th Phase, G.I.D.C., Vapi — 396195, Gujarat, India</dd>
+        <dt>Established</dt><dd id="d2"></dd>
+        <dt>Works address</dt><dd id="d3"></dd>
         <dt>Workshop area</dt><dd id="d4"></dd>
         <dt>Team</dt><dd id="d5"></dd>
-        <dt>GST number</dt><dd id="d6">24IVTPP6141P1ZJ</dd>
+        <dt>GST number</dt><dd id="d6"></dd>
         <dt>Udyam registration</dt><dd id="d7"></dd>
         <dt>Bank</dt><dd>Details issued with the proforma invoice</dd>
         <dt>Payment terms</dt><dd>50% advance, balance before dispatch (negotiable on rate contracts)</dd>
@@ -110,8 +104,17 @@
     </div>
   </div>
 </section>
-</main>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" defer></script>
-<script type="module" src="assets/app.js"></script>
+
+<script src="assets/data.js"></script>
+<script src="assets/catalog-sync.js"></script>
+<script src="assets/site.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const set = (id, v) => document.getElementById(id).textContent = v;
+  set("d1", COMPANY.name); set("d2", COMPANY.founded); set("d3", COMPANY.address);
+  set("d4", COMPANY.shopArea); set("d5", COMPANY.staff + " people across fabrication, fitting and polishing");
+  set("d6", COMPANY.gst); set("d7", COMPANY.udyam); set("d8", COMPANY.hours);
+});
+</script>
 </body>
 </html>
